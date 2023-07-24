@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import * as Misskey from "misskey-js";
 
 const Home = (): JSX.Element => {
   const [isStreaming, setIsStreaming] = useState(false);
@@ -19,6 +20,13 @@ const Home = (): JSX.Element => {
         disabled={isStreaming}
         onClick={() => {
           setIsStreaming(true);
+          const stream = new Misskey.Stream("https://misskey.systems", {
+            token: apiToken,
+          });
+          const mainChannel = stream.useChannel("localTimeline");
+          mainChannel.on("note", (payload) => {
+            console.log(payload);
+          });
         }}
       >
         開始
