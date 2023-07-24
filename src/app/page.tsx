@@ -31,8 +31,19 @@ const Home = (): JSX.Element => {
             token: apiToken,
           }).useChannel("localTimeline");
           setChannel(newChannel);
-          newChannel.on("note", (payload) => {
-            console.log(payload);
+          newChannel.on("note", async (payload) => {
+            if (
+              payload.text?.includes("てェ…") ||
+              payload.text?.includes("でェ…")
+            ) {
+              await new Misskey.api.APIClient({
+                origin: "https://misskey.systems",
+                credential: apiToken,
+              }).request("notes/reactions/create", {
+                noteId: payload.id,
+                reaction: "🚀",
+              });
+            }
           });
         }}
       >
