@@ -27,7 +27,7 @@ const Home = (): JSX.Element => {
       />
       <div className="flex flex-row m-1">
         <button
-          className="border m-1 p-1 w-1/2 border-transparent bg-green-400 hover:bg-transparent hover:border-green-400 disabled:bg-gray-200 disabled:hover:border-transparent"
+          className="border m-1 p-1 w-1/2 border-transparent bg-green-400 hover:bg-transparent hover:border-green-400 disabled:bg-gray-200 disabled:hover:border-transparent disabled:text-gray-400"
           disabled={isStreaming}
           onClick={() => {
             setIsStreaming(true);
@@ -54,7 +54,7 @@ const Home = (): JSX.Element => {
           開始
         </button>
         <button
-          className="border m-1 p-1 w-1/2 border-transparent bg-red-400 hover:bg-transparent hover:border-red-400 disabled:bg-gray-200 disabled:hover:border-transparent"
+          className="border m-1 p-1 w-1/2 border-transparent bg-red-400 hover:bg-transparent hover:border-red-400 disabled:bg-gray-200 disabled:hover:border-transparent disabled:text-gray-400"
           disabled={!isStreaming}
           onClick={() => {
             setIsStreaming(false);
