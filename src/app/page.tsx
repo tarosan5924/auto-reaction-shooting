@@ -15,9 +15,20 @@ const Home = (): JSX.Element => {
 
   return (
     <div className="container mx-auto my-4 px-4 max-w-xl">
-      <h1 className="text-center text-lg">コログ構文リアクションシューター</h1>
+      <h1 className="text-center text-3xl my-2">
+        コログ構文リアクションシューター
+      </h1>
+      <div className="my-2">
+        使い方
+        <ol className="pl-2 my-1">
+          <li>1.APIトークンを入力</li>
+          <li>2.開始ボタンを押す</li>
+          <li>3.コログ構文のノートが流れてくるのを待つ</li>
+        </ol>
+        以上！！
+      </div>
       <input
-        className="border border-solid border-gray-400 p-1 w-full"
+        className="border border-solid border-gray-400 p-1 w-full my-1"
         type="text"
         value={apiToken}
         placeholder={"APIトークンを入力"}
