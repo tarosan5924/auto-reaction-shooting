@@ -15,6 +15,7 @@ const Home = (): JSX.Element => {
 
   return (
     <div className="container mx-auto my-4 px-4 max-w-xl">
+      <h1 className="text-center text-lg">コログ構文リアクションシューター</h1>
       <input
         className="border border-solid border-gray-400 p-1 w-full"
         type="text"
@@ -26,7 +27,7 @@ const Home = (): JSX.Element => {
       />
       <div className="flex flex-row m-1">
         <button
-          className="border m-1 w-1/2"
+          className="border m-1 p-1 w-1/2 border-transparent bg-green-400 hover:bg-transparent hover:border-green-400 disabled:bg-gray-200 disabled:hover:border-transparent"
           disabled={isStreaming}
           onClick={() => {
             setIsStreaming(true);
@@ -53,7 +54,7 @@ const Home = (): JSX.Element => {
           開始
         </button>
         <button
-          className="border m-1 w-1/2"
+          className="border m-1 p-1 w-1/2 border-transparent bg-red-400 hover:bg-transparent hover:border-red-400 disabled:bg-gray-200 disabled:hover:border-transparent"
           disabled={!isStreaming}
           onClick={() => {
             setIsStreaming(false);
