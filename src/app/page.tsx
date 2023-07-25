@@ -14,8 +14,9 @@ const Home = (): JSX.Element => {
   }>>(null);
 
   return (
-    <div>
+    <div className="container mx-auto my-4 px-4 max-w-xl">
       <input
+        className="border border-solid border-gray-400 p-1 w-full"
         type="text"
         value={apiToken}
         placeholder={"APIトークンを入力"}
@@ -23,45 +24,49 @@ const Home = (): JSX.Element => {
           setApiToken(e.currentTarget.value);
         }}
       />
-      <button
-        disabled={isStreaming}
-        onClick={() => {
-          setIsStreaming(true);
-          const newChannel = new Misskey.Stream("https://misskey.systems", {
-            token: apiToken,
-          }).useChannel("localTimeline");
-          setChannel(newChannel);
-          newChannel.on("note", async (payload) => {
-            if (
-              payload.text?.includes("てェ…") ||
-              payload.text?.includes("でェ…")
-            ) {
-              await new Misskey.api.APIClient({
-                origin: "https://misskey.systems",
-                credential: apiToken,
-              }).request("notes/reactions/create", {
-                noteId: payload.id,
-                reaction: "🚀",
-              });
+      <div className="flex flex-row m-1">
+        <button
+          className="border m-1 w-1/2"
+          disabled={isStreaming}
+          onClick={() => {
+            setIsStreaming(true);
+            const newChannel = new Misskey.Stream("https://misskey.systems", {
+              token: apiToken,
+            }).useChannel("localTimeline");
+            setChannel(newChannel);
+            newChannel.on("note", async (payload) => {
+              if (
+                payload.text?.includes("てェ…") ||
+                payload.text?.includes("でェ…")
+              ) {
+                await new Misskey.api.APIClient({
+                  origin: "https://misskey.systems",
+                  credential: apiToken,
+                }).request("notes/reactions/create", {
+                  noteId: payload.id,
+                  reaction: "🚀",
+                });
+              }
+            });
+          }}
+        >
+          開始
+        </button>
+        <button
+          className="border m-1 w-1/2"
+          disabled={!isStreaming}
+          onClick={() => {
+            setIsStreaming(false);
+            if (!channel) {
+              return;
             }
-          });
-        }}
-      >
-        開始
-      </button>
-      <button
-        disabled={!isStreaming}
-        onClick={() => {
-          setIsStreaming(false);
-          if (!channel) {
-            return;
-          }
-          channel.dispose();
-          setChannel(null);
-        }}
-      >
-        終了
-      </button>
+            channel.dispose();
+            setChannel(null);
+          }}
+        >
+          終了
+        </button>
+      </div>
     </div>
   );
 };
