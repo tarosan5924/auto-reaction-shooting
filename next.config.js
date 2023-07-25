@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = { output: "export", basePath: "/auto-reaction-shooting" };
+const nextConfig = {
+  assetPrefix: process.env.GITHUB_PAGES ? "/auto-reaction-shooting" : "",
+};
 
 module.exports = nextConfig;
