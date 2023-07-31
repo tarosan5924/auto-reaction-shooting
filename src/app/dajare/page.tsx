@@ -27,6 +27,8 @@ const Home = (): JSX.Element => {
           <li>3.ダジャレノートが流れてくるのを待つ</li>
         </ol>
         以上！！
+        <br />
+        ※誤検知によるトラブルについて一切の責任は負いません。
       </div>
       <input
         className="border border-solid border-gray-400 p-1 w-full my-1"
