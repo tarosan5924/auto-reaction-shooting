@@ -86,12 +86,13 @@ const sentenceMaxDupRate = (divided: string[], target: string): number => {
   );
 };
 
-export const dajareWake = (sentence: string, n: number = 3): boolean => {
-  // MeCabの代わりに直接処理したものを使用
-  // TODO kuromojiを使って置き換える
-  const preprocessed = preprocessing(sentence);
+export const dajareWake = async (sentence: string, n: number = 3): Promise<boolean> => {
+  const tokenizer = await getTokenizer(defaultBuilder);
+  const tokenizedSentence = tokenizer.tokenize(sentence).map(word=>word.reading ?? "").join();
+  
+  const preprocessed = preprocessing(tokenizedSentence);
   const divided = divide(preprocessed, n);
-  kuromoji.builder({ dicPath: "/dict" });
+  
   if (divided.length === 0) {
     return false;
   } else {
