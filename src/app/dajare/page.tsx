@@ -48,6 +48,10 @@ const Home = (): JSX.Element => {
             }).useChannel("localTimeline");
             setChannel(newChannel);
             newChannel.on("note", async (payload) => {
+              //長すぎる分は誤検知の可能性が高まるので判定しない
+              if ((payload.text ?? "").length > 15) {
+                return;
+              }
               if (await dajareWake(payload.text ?? "")) {
                 await new Misskey.api.APIClient({
                   origin: "https://misskey.systems",
