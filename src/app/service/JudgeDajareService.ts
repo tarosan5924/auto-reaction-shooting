@@ -8,7 +8,7 @@ const replaceWords: readonly [string, string][] = [
   ["。", ""],
   ["、", ""],
   [",", ""],
-  [".", ""],
+  ["\\.", ""],
   ["!", ""],
   ["！", ""],
   ["・", ""],
@@ -32,7 +32,7 @@ const replaceWords: readonly [string, string][] = [
   ["ー", ""],
 ];
 
-const defaultBuilder = kuromoji.builder({ dicPath: "/dict" });
+const defaultBuilder = kuromoji.builder({ dicPath: "public/dict" });
 
 const getTokenizer = (
   builder: TokenizerBuilder<IpadicFeatures>
@@ -88,7 +88,7 @@ const sentenceMaxDupRate = (divided: string[], target: string): number => {
 
 export const dajareWake = async (sentence: string, n: number = 3): Promise<boolean> => {
   const tokenizer = await getTokenizer(defaultBuilder);
-  const tokenizedSentence = tokenizer.tokenize(sentence).map(word=>word.reading ?? "").join();
+  const tokenizedSentence = tokenizer.tokenize(sentence).map(word=>word.reading ?? "").join("");
   
   const preprocessed = preprocessing(tokenizedSentence);
   const divided = divide(preprocessed, n);
