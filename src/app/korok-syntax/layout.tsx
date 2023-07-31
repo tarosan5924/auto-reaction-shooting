@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./../index.css";
+import "./../../index.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Auto Reaction Shooter",
-  description: "Auto Reaction Shooter for misskey.systems",
+  title: "Korok Syntax Reaction Shooter",
+  description: "Auto Reaction Shooter for Korok Syntax Note",
 };
 
 export default function RootLayout({
