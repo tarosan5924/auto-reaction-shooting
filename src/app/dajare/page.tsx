@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import * as Misskey from "misskey-js";
+import { dajareWake } from "../service/JudgeDajareService";
 
 const Home = (): JSX.Element => {
   const [isStreaming, setIsStreaming] = useState(false);
@@ -16,14 +17,14 @@ const Home = (): JSX.Element => {
   return (
     <div className="container mx-auto my-4 px-4 max-w-xl">
       <h1 className="text-center text-3xl my-2">
-        コログ構文リアクションシューター
+        ダジャレリアクションシューター
       </h1>
       <div className="my-2">
         使い方
         <ol className="pl-2 my-1">
           <li>1.APIトークンを入力</li>
           <li>2.開始ボタンを押す</li>
-          <li>3.コログ構文のノートが流れてくるのを待つ</li>
+          <li>3.ダジャレノートが流れてくるのを待つ</li>
         </ol>
         以上！！
       </div>
@@ -47,16 +48,13 @@ const Home = (): JSX.Element => {
             }).useChannel("localTimeline");
             setChannel(newChannel);
             newChannel.on("note", async (payload) => {
-              if (
-                payload.text?.includes("てェ…") ||
-                payload.text?.includes("でェ…")
-              ) {
+              if (await dajareWake(payload.text ?? "")) {
                 await new Misskey.api.APIClient({
                   origin: "https://misskey.systems",
                   credential: apiToken,
                 }).request("notes/reactions/create", {
                   noteId: payload.id,
-                  reaction: "🚀",
+                  reaction: ":shingi:",
                 });
               }
             });
